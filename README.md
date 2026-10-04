@@ -8,7 +8,8 @@ activity name is used to defined name of the config file
 ```xml
 		<activity
 			android:name=".<tag>"
-			android:label="<label>" >
+			android:label="<label>"
+			android:exported="false" >
 			<intent-filter>
 				<action android:name="org.omnirom.DaylightHeaderPack1" />
 
@@ -69,3 +70,28 @@ the quickbar images will become hard to see.
 
 ## Contributors ##
 + Travis Hall
++ Syed Sajid
+
+TODO
+-----
+Show pack properties like type (random, list, time context) and change interval
+when selecting
+
+Omni wallpapers
+-----
+Using Picasso
+http://square.github.io/picasso/
+
+## Contributors ##
++ JP Kenji
++ PartimusPrime
+
+## Contributing wallpapers ##
+Put images files into drawable-nodpi
+```xml
+assets/wallpaper.xml
+```
+```xml
+    <wallpaper image="wall_name" creator="optional creator name" />
+```
+

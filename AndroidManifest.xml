@@ -28,11 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <application
         android:allowBackup="false"
         android:label="OmniStyle"
-        android:icon="@drawable/ic_launcher_settings"
-        android:theme="@style/Theme.OmniStyle" >
+        android:icon="@drawable/candy_icon"
+        android:theme="@style/Theme.OmniStyle"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true" >
         <activity
             android:name=".BrowseHeaderActivity"
-            android:label="@string/browse_header" >
+            android:label="@string/browse_header"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -40,536 +43,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </activity>
         <activity
             android:name=".PickHeaderActivity"
-            android:label="@string/browse_header">
+            android:label="@string/pick_header"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".weather"
-            android:label="LockClock (mono)" >
+            android:name=".BrowseThemeHeaderActivity"
+            android:label="@string/browse_theme_header"
+            android:exported="true" >
             <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".weather_color"
-            android:label="LockClock (color)" >
+            android:name=".BrowseWallsActivity"
+            android:label="@string/browse_walls"
+            android:configChanges="orientation|screenSize"
+            android:exported="true" >
             <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".weather_marshmallow"
-            android:label="Marshmallow" >
+            android:name=".BrowseWallsFilterActivity"
+            android:label="@string/browse_theme_walls"
+            android:configChanges="orientation|screenSize"
+            android:exported="true" >
             <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".weather_faded"
-            android:label="Faded" >
+        <activity-alias
+            android:name=".WallpaperActivity"
+            android:label="@string/omni_walls"
+            android:exported="true"
+            android:targetActivity="org.omnirom.omnistyle.BrowseWallsActivity" >
             <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-
+        </activity-alias>
         <activity
-            android:name=".weather_weezle"
-            android:label="Weezle" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_gs6"
-            android:label="Galaxy S6" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_gnw"
-            android:label="Google Now" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_miui"
-            android:label="MIUI" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_sthul"
-            android:label="Sthul" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_tapas"
-            android:label="Tapas" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_magical"
-            android:label="Magical" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".weather_vclouds"
-            android:label="VClouds" >
-            <intent-filter>
-                <action android:name="org.omnirom.WeatherIconPack" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".nature"
-            android:label="Nature" >
+            android:name=".avengers"
+            android:label="Avengers"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".poly"
-            android:label="Poly" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".naturerandom"
-            android:label="Nature (random)" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".wavvy"
-            android:label="Wavvy" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".colorful"
-            android:label="Colorful" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".space_interval"
-            android:label="Space" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ab_uw_sharm"
-            android:label="Underwater-Sharm El Sheikh" >
+            android:name=".beaches"
+            android:label="Beaches"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-		 <activity
-			android:name=".n"
-			android:label="Splash" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".n2"
-			android:label="Dots" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".color_layer_header_base"
-			android:label="Colors texture - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".colorz"
-			android:label="Pixels full" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture2"
-			android:label="Pixels full v2" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".rrs"
-			android:label="Resurrection Remix - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".rrs1"
-			android:label="Resurrection Remix 1 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".pb"
-			android:label="PitchBlack - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".pbs_tm"
-			android:label="PitchBlack 1 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".pbs_notm"
-			android:label="PitchBlack 2 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".getr_base"
-			android:label="Get resurrected - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".getr_base1"
-			android:label="Get resurrected 2 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".getr_smart"
-			android:label="Get resurrected 3 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".paper1"
-			android:label="Paper" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".magic"
-			android:label="Magic" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".camo"
-			android:label="Camouflage" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".NT"
-			android:label="Color with texture - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture"
-			android:label="Texture - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture1"
-			android:label="Texture1 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture3"
-			android:label="Texture3 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture4"
-			android:label="Texture4 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture5"
-			android:label="Texture5 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture6"
-			android:label="Texture6 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".texture7"
-			android:label="Texture7 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".lines"
-			android:label="Texture8 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		 <activity
-			android:name=".dots_smart"
-			android:label="Texture9 - smart" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".rr1"
-			android:label="PitchBlack" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".rr"
-			android:label="RR-1" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".rr2"
-			android:label="RR-2" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".rr3"
-			android:label="RR Progress" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".rr4"
-			android:label="RR-4" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".rr5"
-			android:label="RR-5" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".orioles1"
-			android:label="Orioles" >
-			<intent-filter>
-				<action android:name="org.omnirom.DaylightHeaderPack1" />
-				
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <activity
-            android:name=".one_piece"
-            android:label="Onepiece" >
+            android:name=".comic"
+            android:label="JLA, Xmen and Avengers"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".hunterxhunter"
-            android:label="HunterxHunter" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".shingeki_no_kyojin"
-            android:label="Shingeki no Kyojin" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".kimetsu_no_yaiba"
-            android:label="Kimetsu no Yaiba" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".my_hero_academia"
-            android:label="My Hero Academia" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".dragon_ball"
-            android:label="Dragon Ball" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ig_fxckingmind"
-            android:label="IG Stuff | fxckingdeathwish's mind" >
+            android:label="IG Stuff | fxckingdeathwish's mind"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
 
@@ -577,8 +130,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </intent-filter>
         </activity>
         <activity
-            android:name=".idk_sumtim"
-            android:label="IG Stuff | ElDainosor.bmp summertime" >
+            android:name=".scenes1"
+            android:label="Flat Scenery"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
 
@@ -586,130 +140,94 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </intent-filter>
         </activity>
         <activity
-            android:name=".nataliasolaange"
-            android:label="IG Stuff | nataliasolaange collection" >
+            android:name=".scenes2"
+            android:label="Flat Scenery 2"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".clo_llection"
-            android:label="Collections | Best of COLOURLovers.com" >
+            android:name=".forest"
+            android:label="Forest"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".clo_tinted"
-            android:label="Collections | Best of COLOURLovers.com but Tinted" >
+            android:name=".nature_random"
+            android:label="Nature (random)"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".bootleg_style"
-            android:label="Collections | Bootleggers Styled Headers" >
+            android:name=".nature"
+            android:label="Nature"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".clo_aestheticwalls_mix"
-            android:label="Collections | Memesis + pizzheaderz aesthetic - Vaporwave" >
+            android:name=".poly"
+            android:label="Poly"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".clo_aestheticwalls_sj"
-            android:label="Collections | Memesis Aesthetic - Sacred Japan" >
+            android:name=".space_interval"
+            android:label="Space (interval)"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".purplegorilla"
-            android:label="Collections | I don't believe we're been properly introduced" >
+            android:name=".wavvy"
+            android:label="Wavvy"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".clo_niceheader"
-            android:label="Collections | Community nicest header submissions" >
+            android:name=".western"
+            android:label="Western"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".clo_pizzshufied"
-            android:label="Collections | pizzheaderz shishufied" >
+            android:name=".scenery"
+            android:label="Scenery - Anime"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack1" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".clo_procons"
-            android:label="Collections | pizzheaderz pro and cons" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".clo_win98"
-            android:label="Collections | W98" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ig_agusfotos"
-            android:label="IG Stuff | agus.laz4rte repertoire" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ig_conejocelestial"
-            android:label="IG Stuff | conejocelestial's insight" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".clo_nice"
-            android:label="the nicest header pack" >
-            <intent-filter>
-                <action android:name="org.omnirom.DaylightHeaderPack1" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+	    <activity
+	        android:name=".onepiece_header"
+	        android:label="One Piece - Header"
+	        android:exported="false" >
+	        <intent-filter>
+                    <action android:name="org.omnirom.DaylightHeaderPack1" />
+                    <category android:name="android.intent.category.DEFAULT" />
+	        </intent-filter>
+	    </activity>
     </application>
 </manifest>

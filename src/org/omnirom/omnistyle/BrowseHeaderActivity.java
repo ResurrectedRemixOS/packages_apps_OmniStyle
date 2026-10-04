@@ -18,8 +18,6 @@
 package org.omnirom.omnistyle;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,8 +32,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,6 +47,10 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +70,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BrowseHeaderActivity extends Activity {
+public class BrowseHeaderActivity extends AppCompatActivity {
+
     private static final String TAG = "BrowseHeaderActivity";
     private static final String HEADERS_LIST_URI = "https://dl.omnirom.org/images/headers/thumbs/json_headers_xml.php";
     private static final String HEADERS_THUMB_URI = "https://dl.omnirom.org/images/headers/thumbs/";
@@ -100,7 +101,6 @@ public class BrowseHeaderActivity extends Activity {
     private Runnable mDoAfter;
     private Set<String> mTagList = new HashSet<>();
     private List<String> mTagSortedList = new ArrayList<>();
-    private List<String> mTagDisplayList = new ArrayList<>();
     private Set<String> mCreatorList = new HashSet<>();
     ArrayAdapter<CharSequence> mSelectSpinnerAdapter;
     private boolean mRemoteMode;
@@ -108,7 +108,6 @@ public class BrowseHeaderActivity extends Activity {
     private List<File> mCleanupTmpFiles = new ArrayList<>();
     private MenuItem mMenuItem;
     private boolean mReloading;
-    private Spinner mLocationSelect;
 
     private static final int PERMISSIONS_REQUEST_EXTERNAL_STORAGE = 0;
 
@@ -177,8 +176,8 @@ public class BrowseHeaderActivity extends Activity {
             int position = getAdapterPosition();
             if (mPickerMode) {
                 DaylightHeaderInfo di = mHeadersList.get(position);
-                Settings.System.putString(getContentResolver(), Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER_IMAGE, mPackageName + "/" + di.mImage);
-                Settings.System.putString(getContentResolver(), Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER_PROVIDER, "static");
+                Settings.System.putString(getContentResolver(), Settings.System.STATUS_BAR_CUSTOM_HEADER_IMAGE, mPackageName + "/" + di.mImage);
+                Settings.System.putString(getContentResolver(), Settings.System.STATUS_BAR_CUSTOM_HEADER_PROVIDER, "static");
                 Toast.makeText(BrowseHeaderActivity.this, R.string.custom_header_image_notice, Toast.LENGTH_LONG).show();
             }
         }
@@ -251,12 +250,8 @@ public class BrowseHeaderActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_browse);
 
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-        getActionBar().setElevation(0);
-
         mProgress = (ProgressBar) findViewById(R.id.browse_progress);
         mHeaderSelect = (Spinner) findViewById(R.id.package_select);
-        mLocationSelect = (Spinner) findViewById(R.id.location_select);
         mCreatorName = (TextView) findViewById(R.id.meta_creator);
         mCreatorLabel = getResources().getString(R.string.header_creator_label);
         mHeaderMap = new HashMap<String, String>();
@@ -273,36 +268,11 @@ public class BrowseHeaderActivity extends Activity {
                 if (!mRemoteMode) {
                     String label = mLabelList.get(position);
                     loadHeaderPackage(mHeaderMap.get(label));
-                    //mCreatorName.setVisibility(TextUtils.isEmpty(mCreator) ? View.GONE : View.VISIBLE);
+                    mCreatorName.setVisibility(TextUtils.isEmpty(mCreator) ? View.GONE : View.VISIBLE);
                     mCreatorName.setText(mCreatorLabel + mCreator);
                     mHeaderListAdapter.notifyDataSetChanged();
                 } else {
                     filterRemoteWallpapers(FILTER_BY_TAG, mTagSortedList.get(position));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
-        String[] locationList = getResources().getStringArray(R.array.location_list);
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                R.layout.spinner_item, locationList);
-        mLocationSelect.setAdapter(adapter);
-
-        mLocationSelect.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mRemoteMode = position != 0;
-                if (position == 0) {
-                    showLocal();
-                } else {
-                    if (isNetworkAvailable()) {
-                        showRemote();
-                    } else {
-                        Toast.makeText(BrowseHeaderActivity.this, R.string.no_network_message, Toast.LENGTH_LONG).show();
-                    }
                 }
             }
 
@@ -341,11 +311,41 @@ public class BrowseHeaderActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.header_browse_menu, menu);
+        mMenuItem = menu.findItem(R.id.header_location);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+        } else if (item.getItemId() == R.id.header_location) {
+            if (mRemoteMode) {
+                showLocal();
+            } else {
+                if (isNetworkAvailable()) {
+                    showRemote();
+                } else {
+                    Toast.makeText(BrowseHeaderActivity.this, R.string.no_network_message, Toast.LENGTH_LONG).show();
+                }
+            }
         }
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        if (mMenuItem != null) {
+            if (mRemoteMode) {
+                mMenuItem.setTitle(getResources().getString(R.string.header_location_local));
+            } else {
+                mMenuItem.setTitle(getResources().getString(R.string.header_location_online));
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void getAvailableHeaderPacks(Map<String, String> headerMap) {
@@ -463,10 +463,6 @@ public class BrowseHeaderActivity extends Activity {
                 if (!mTagList.contains(DEFAULT_TAG)) {
                     mTagSortedList.add(DEFAULT_TAG);
                 }
-                mTagDisplayList.clear();
-                for (String s : mTagSortedList) {
-                    mTagDisplayList.add(s.substring(0, 1).toUpperCase() + s.substring(1));
-                }
                 showRemote();
             }
             mReloading = false;
@@ -573,8 +569,8 @@ public class BrowseHeaderActivity extends Activity {
             return;
         }
         final Uri imageUri = Uri.fromFile(new File(headerFile));
-        Settings.System.putString(getContentResolver(), Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER_PROVIDER, "file");
-        Settings.System.putString(getContentResolver(), Settings.System.OMNI_STATUS_BAR_FILE_HEADER_IMAGE, imageUri.toString());
+        Settings.System.putString(getContentResolver(), Settings.System.STATUS_BAR_CUSTOM_HEADER_PROVIDER, "file");
+        Settings.System.putString(getContentResolver(), Settings.System.STATUS_BAR_FILE_HEADER_IMAGE, imageUri.toString());
         Toast.makeText(BrowseHeaderActivity.this, R.string.custom_header_image_notice, Toast.LENGTH_LONG).show();
     }
 
@@ -604,10 +600,8 @@ public class BrowseHeaderActivity extends Activity {
                 } else {
                     tag = getDefaultTag(fileName);
                 }
-                if (TextUtils.isEmpty(tag)) {
-                    continue;
-                }
                 mTagList.add(tag);
+
                 if (fileName.lastIndexOf(".") != -1) {
                     String ext = fileName.substring(fileName.lastIndexOf("."));
                     if (ext.equals(".png") || ext.equals(".jpg")) {
@@ -642,21 +636,18 @@ public class BrowseHeaderActivity extends Activity {
         mSelectSpinnerAdapter.clear();
         mSelectSpinnerAdapter.addAll(mLabelList);
         mHeaderListView.setAdapter(mHeaderListAdapter);
-        mHeaderSelect.setSelection(0);
     }
 
     private void showRemote(){
         mHeaderListView.setAdapter(mRemoteHeaderListAdapter);
         if (!mRemoteLoaded) {
-            mSelectSpinnerAdapter.clear();
             mProgress.setVisibility(View.VISIBLE);
             FetchHeaderListTask fetch = new FetchHeaderListTask();
             fetch.execute();
         } else {
             mRemoteMode = true;
             mSelectSpinnerAdapter.clear();
-            mSelectSpinnerAdapter.addAll(mTagDisplayList);
-            mHeaderSelect.setSelection(0);
+            mSelectSpinnerAdapter.addAll(mTagSortedList);
             filterRemoteWallpapers(FILTER_BY_TAG, mTagSortedList.get(0));
         }
     }
